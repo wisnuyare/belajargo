@@ -18,6 +18,7 @@ class Carts extends Component{
                     <div> Quantity : {cart.qty} </div>
                     <div> Brand : {cart.brand} </div>
                     <button onClick = {() => {this.props.deleteCart(cart.id)}}>Delete</button>
+                    {this.props.updateId === null ? (<button onClick = {() => {this.props.updateCart(cart.id)}}>Update</button>) : null}
                     <br/>
                 </div>
             )

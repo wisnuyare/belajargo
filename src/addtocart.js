@@ -10,19 +10,23 @@ class AddtoCart extends Component {
         if(e.target.id === 'qty') {
             this.setState({
             [e.target.id]: parseInt(e.target.value, 10)
-            })
-            
+            })            
         } else { 
             this.setState({
             [e.target.id]: e.target.value
-            })
-            
+            })            
         }
         
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.addtoCart(this.state);        
+        this.props.addtoCart(this.state);
+        this.setState({
+            name: null,
+            qty: null,
+            brand: null,
+        })
+        document.getElementById("formCart").reset();    
     }
     handleCheck = (e) => {
         this.props.showAll(e.target.checked)
@@ -30,8 +34,8 @@ class AddtoCart extends Component {
     render(){
         return (
             <div>
-                <form onSubmit = { this.handleSubmit }>
-                    <input type = "checkbox" checked = {this.props.checked} onChange = { this.handleCheck }/>
+                <form id = "formCart"onSubmit = { this.handleSubmit }>
+                    <input type = "checkbox" checked = {this.props.checked} onChange = { this.handleCheck }/>Quantity More Than 10<br/>
                     <label htmlFor = "name">Name: </label>
                     <input type = "text" id = "name" onChange = { this.handleChange }/>
                     <br/> 
