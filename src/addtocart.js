@@ -34,7 +34,7 @@ class AddtoCart extends Component {
     render(){
         return (
             <div>
-                <form id = "formCart"onSubmit = { this.handleSubmit }>
+                <form id = "formCart" onSubmit = { this.handleSubmit }>
                     <input type = "checkbox" checked = {this.props.checked} onChange = { this.handleCheck }/>Quantity More Than 10<br/>
                     <label htmlFor = "name">Name: </label>
                     <input type = "text" id = "name" onChange = { this.handleChange }/>
