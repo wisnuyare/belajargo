@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Carts from './content';
 import AddtoCart from './addtocart';
 import UpdateForm from './updateForm';
+import './App.css'
+
 
 class App extends Component {
   state = {
@@ -68,3 +70,4 @@ class App extends Component {
 }
 
 export default App;
+

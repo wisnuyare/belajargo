@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Carts extends Component{
     render(){
@@ -10,6 +11,7 @@ class Carts extends Component{
                     <div> Quantity : {cart.qty} </div>
                     <div> Brand : {cart.brand} </div>
                     <button onClick = {() => {this.props.deleteCart(cart.id)}}>Delete</button>
+                    {this.props.updateId === null ? (<button onClick = {() => {this.props.updateCart(cart.id)}}>Update</button>) : null}
                     <br/>
                 </div>
             ) : null) : (
@@ -32,4 +34,12 @@ class Carts extends Component{
     }
 }
 
+Carts.propTypes = {
+   carts: PropTypes.arrayOf(PropTypes.shape({
+       qty: PropTypes.number.isRequired,
+       name: PropTypes.string.isRequired,
+       brand: PropTypes.string.isRequired
+   }))
+};
 export default Carts
+
