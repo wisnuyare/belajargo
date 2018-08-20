@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addtoCart } from '../action/addtoCartAction';
 
 class AddtoCart extends Component {
     state = {
@@ -40,9 +42,9 @@ class AddtoCart extends Component {
     handleChange = (e) => {     
         this.setState({
         [e.target.id]: e.target.value
-        })           
+        })    
     }
-    handleSubmit = (e) => {
+    addtoCart = (e) => {
         e.preventDefault();
         if(this.handleValidation()){
             alert("Form submitted");
@@ -52,31 +54,31 @@ class AddtoCart extends Component {
                 qty: null,
                 brand: null,
             })
-            this.formCart.reset(); 
-         }else{
+            this.props.history.push('/content'); 
+        }else{
             alert("Form has errors.")
-         }   
+        }         
     }
-    handleCheck = (e) => {
-        this.props.showAll(e.target.checked)
-    }
+    // handleCheck = (e) => {
+    //     this.props.showAll(e.target.checked)
+    // }
     render(){
         return (
             <div className = "form-control">
-                <form ref={ (el) => this.formCart = el } onSubmit = { this.handleSubmit }>
-                    <input type = "checkbox" checked = {this.props.checked} onChange = { this.handleCheck }/>Quantity More Than 10<br/>
+                <form onSubmit = {this.addtoCart}>
+                    {/* <input type = "checkbox" checked = {this.props.checked} onChange = { this.handleCheck }/>Quantity More Than 10<br/> */}
                     <label htmlFor = "name">Name: </label>
-                    <input className=  { this.state.errors["name"] } type = "text" ref={ (el) => this.inputName = el } id = "name" onChange = { this.handleChange }/>
+                    <input className=  { this.state.errors["name"] } type = "text" id = "name" onChange = { this.handleChange }/>
                     <span className="message">{ this.state.message["name"] }</span>
                     <br/> 
                     <label htmlFor = "qty">Quantity: </label>
-                    <input className={ this.state.errors["qty"] } type = "number" ref={ (el) => this.inputQty = el } id = "qty" onChange = { this.handleChange }/>
+                    <input className={ this.state.errors["qty"] } type = "number" id = "qty" onChange = { this.handleChange }/>
                     <span className="message">{ this.state.message["qty"] }</span>
                     <br/> 
                     <label htmlFor = "brand">Brand: </label>
-                    <input className={ this.state.errors["brand"] } type = "text" ref={ (el) => this.inputBrand = el } id = "brand" onChange = { this.handleChange }/>
+                    <input className={ this.state.errors["brand"] } type = "text" id = "brand" onChange = { this.handleChange }/>
                     <span className="message">{ this.state.message["brand"] }</span> 
-                    <br/>
+<br/>
                     <button> Submit </button>
                 </form>
             </div>
@@ -84,5 +86,11 @@ class AddtoCart extends Component {
     }
 }
 
-export default AddtoCart
+const addCart = (deleteC) => {
+    return {
+      addtoCart: (id) => deleteC(addtoCart(id))
+    }
+}
+
+export default connect(null, addCart)(AddtoCart)
 

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { submitUpdate } from '../action/updateAction'
 
 class UpdateForm extends Component {
     state = {
-        name: this.props.name,
-        qty: this.props.qty,
-        brand: this.props.brand,
-        id: this.props.id
+        name: this.props.carts.name,
+        qty: this.props.carts.qty,
+        brand: this.props.carts.brand,
+        id: this.props.carts.id
     }
     handleChange = (e) => {
         if(e.target.id === 'qty') {
@@ -16,16 +18,16 @@ class UpdateForm extends Component {
             this.setState({
             [e.target.id]: e.target.value
             })           
-        }
-        this.setState({
-            id: this.props.id
-        })        
+        }       
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.submitUpdate(this.state);            
+        //console.log(this.props.submitUpdate(this.state))
+        // console.log(this.state)
+        this.props.submitUpdate(this.state);
+        this.props.history.push('/content');            
     }
-    render(){
+    render(){        
         return (
             <div>
                 <form onSubmit = { this.handleSubmit }>
@@ -45,4 +47,16 @@ class UpdateForm extends Component {
     }
 }
 
-export default UpdateForm
+const listCart = (state) => {
+    return {
+      carts: state.updateCarts
+    }
+}
+
+const submitUpd = (submitU) => {
+    return {
+      submitUpdate: (state) => submitU(submitUpdate(state))
+    }
+}
+
+export default connect(listCart, submitUpd)(UpdateForm)
